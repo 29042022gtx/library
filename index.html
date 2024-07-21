@@ -7,6 +7,34 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+  <dialog id="dialog" class="dialog">
+    <form action="">
+      <div class="title">Adding book</div>
+      
+      <div>
+        <label for="title">Title: </label>
+        <input type="text" name="title" id="title"
+          placeholder="Book's name">
+      </div>
+
+      <div>
+        <label for="author">Author: </label>
+        <input type="text" name="author" id="author"
+          placeholder="Book's writer">
+      </div>
+      
+      <div>
+        <label for="pages">Pages: </label>
+        <input type="number" min="1" name="pages" id="pages"
+          placeholder="Number of pages">
+      </div>
+      
+      <div class="btns">
+        <button id="cancel" formmethod="dialog">Cancel</button>
+        <button id="add" formmethod="dialog">Add</button>
+      </div>
+    </form>
+  </dialog>
   <header>Library</header>
   <div class="container">
     <!-- <div>
@@ -15,7 +43,7 @@
       <div class="pages">600 pages</div>
       <div class="read">Read</div>
     </div> -->
-    <div class="add">
+    <div id="plus" class="plus">
       +
     </div>
   </div>

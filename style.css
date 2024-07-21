@@ -1,7 +1,12 @@
 :root {
   --max: 800px;
-  --bone: #eee;
+  --cloud: #eee;
+  --smoke: #ddd;
+  --bone: #ccc;
+  --gray: #aaa;
   --blue: #387ca7;
+  --green: #36db52;
+  --red: #ff2222;
 }
 
 * {
@@ -40,24 +45,27 @@ header:hover {
   box-sizing: border-box;
   min-width: 0;
   padding: 8px 16px;
-  background-color: var(--bone);
+  background-color: var(--cloud);
   border-radius: 16px;
 }
 
 .container > div:hover {
   transform: scale(102%);
-  box-shadow: 0 0 8px 2px var(--bone);
+  box-shadow: 0 0 8px 2px var(--cloud);
 }
 
-.container .add {
+.container .plus {
   grid-area: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3em;
+  /* border: 1px solid #000; */
 }
 
 .container > div div {
+  height: 1em;
+  line-height: 1em;
   text-wrap: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -71,4 +79,112 @@ header:hover {
 
 .container .author {
   text-decoration: underline;
+}
+
+.dialog {
+  padding: 12px 32px;
+  text-align: right;
+  border: none;
+  border-radius: 8px;
+  transform: scale(0);
+}
+
+.dialog[open] {
+  transform: scale(1);
+}
+
+.dialog * {
+  font-family: serif;
+  font-size: 100%;
+}
+
+.dialog > form > div {
+  margin: 8px 0;
+}
+
+.dialog {
+  animation: fade-out 0.5s ease-out;
+}
+
+.dialog[open] {
+  animation: fade-in 0.5s ease-out;
+}
+
+.dialog[open]::backdrop {
+  animation: backdrop-fade-in 0.5s ease-out forwards;
+}
+
+/* Animation keyframes */
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(.4);
+    display: none;
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    display: block;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    display: block;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(.2);
+    display: none;
+  }
+}
+
+@keyframes backdrop-fade-in {
+  0% {
+    background-color: rgb(0 0 0 / 0%);
+  }
+
+  100% {
+    background-color: rgb(0 0 0 / 25%);
+  }
+}
+
+.dialog input {
+  padding: 4px 8px;
+  background-color: var(--cloud);
+  border: 1px solid var(--bone);
+  border: none;
+  border-radius: 10em;
+  outline: none;
+}
+
+.dialog input:focus {
+  border-color: black;
+}
+
+.dialog .title {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.dialog .btns button {
+  padding: 4px 8px;
+  font-family: sans-serif;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.dialog #cancel {
+  background-color: var(--red);
+}
+
+.dialog #add {
+  background-color: var(--green);
 }
