@@ -1,4 +1,4 @@
-function Book(author, title, pages, read) {
+function Book(title, author, pages, read) {
   this.title = title + '';
   this.author = author + '';
   this.pages = +pages;
@@ -38,7 +38,16 @@ function prependBook(obj, idx) {
   div.appendChild(content);
 
   content = newDiv('read');
-  content.textContent = obj.read ? 'Read' : 'Not read';
+  const check = document.createElement('input');
+  check.type = 'checkbox';
+  check.classList.add('read-check');
+  check.name = 'read';
+  check.checked = obj.read;
+  content.appendChild(check);
+
+  const readStatus = newDiv('read-status');
+  readStatus.textContent = obj.read ? 'Read' : 'Not read';
+  content.appendChild(readStatus);
   div.appendChild(content);
 
   content = newDiv('delete');
@@ -56,18 +65,12 @@ function newDiv(className) {
 }
 
 const dialog = document.querySelector('dialog');
-const container = document.querySelector('.container');
 const form = document.querySelector('.dialog form');
-const plus = document.querySelector('.container #plus');
 const add = document.querySelector('.dialog #add');
-const book1 = new Book('Abc', 'Game of thrones', 600, true);
-const book2 = new Book('Xyz', 'Dune', 525, false);
-const book3 = new Book(1, '2', 3, false);
-const book4 = new Book('Abc', 'Game of thrones', 600, true);
-const myLibrary = [book1, book2, book3, book4,
-  // book1, book2, book3, book4,
-  // book1
-];
+const container = document.querySelector('.container');
+const plus = document.querySelector('.container #plus');
+const book1 = new Book('Demo', 'Owen', 600, true);
+const myLibrary = [book1];
 
 plus.addEventListener('click', () => {
   dialog.showModal();
@@ -79,13 +82,13 @@ add.addEventListener('click', e => {
   const author = form.author.value;
   const pages = form.pages.value;
   const book = new Book(title, author, pages, false);
-  prependBook(book);
+  prependBook(book, myLibrary.length);
   myLibrary.push(book);
   dialog.close();
+  form.reset();
 })
 
 container.addEventListener('click', e => {
-  // HTMLElement.prototype.getAttribute('data-idx')
   if (e.target.classList.contains('delete')) {
     const book = e.target.parentElement;
     book.remove();
@@ -93,14 +96,23 @@ container.addEventListener('click', e => {
     myLibrary.splice(idx, 1);
     clearContainer();
     populateBooks();
+    return;
+  }
+  if (e.target.classList.contains('read-check')) {
+    const book = e.target.parentElement.parentElement;
+    const idx = +book.getAttribute('data-idx')
+    const read = !myLibrary[idx].read;
+    myLibrary[idx].read = read;
+    let content;
+    if (read) {
+      content = 'Read'
+    } else {
+      content = 'Not read'
+    }
+    const s = book.querySelector('.read-status').textContent
+    console.log(s);
+    book.querySelector('.read-status').textContent = content;
   }
 })
 
 populateBooks();
-
-// const cancel = document.querySelector('#cancel');
-
-// cancel.addEventListener('click', (e) => {
-//   e.preventDefault();
-//   dialog.close();
-// });
