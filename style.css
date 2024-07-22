@@ -63,12 +63,31 @@ header:hover {
   /* border: 1px solid #000; */
 }
 
+.container > div {
+  position: relative;
+}
+
 .container > div div {
   height: 1em;
   line-height: 1em;
   text-wrap: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.container .delete {
+  position: absolute;
+  top: 4px; right: 4px;
+  width: 1em;
+  aspect-ratio: 1;
+  text-align: center;
+  background-color: var(--bone);
+  border-radius: 4px;
+}
+
+.container .delete:hover {
+  color: white;
+  background-color: var(--red);
 }
 
 .container .title {
