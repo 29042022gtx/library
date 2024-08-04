@@ -1,8 +1,10 @@
-function Book(author, title, pages, read) {
-  this.title = title + '';
-  this.author = author + '';
-  this.pages = +pages;
-  this.read = read;
+class Book {
+  constructor(author, title, pages, read) {
+    this.title = title + '';
+    this.author = author + '';
+    this.pages = +pages;
+    this.read = read;
+  }
 }
 
 function clearContainer() {
@@ -70,6 +72,7 @@ const add = document.querySelector('.dialog #add');
 const container = document.querySelector('.container');
 const plus = document.querySelector('.container #plus');
 const book1 = new Book('Owen', 'Demo', 600, true);
+console.log(book1.title);
 const myLibrary = [book1];
 
 plus.addEventListener('click', () => {
